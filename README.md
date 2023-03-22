@@ -21,7 +21,7 @@ Para manter o código da API o mais simples possível, ele é configurado para u
 Adicionar provedor de banco de dados do SQL Server do NuGet.
 Execute o seguinte comando da pasta raiz do projeto para instalar o provedor de banco de dados EF Core para SQL Server do NuGet:
 
-´´dotnet add package Microsoft.EntityFrameworkCore.SqlServer´´
+```dotnet add package Microsoft.EntityFrameworkCore.SqlServer```
 
 2. Adicionar cadeia de conexão às configurações do aplicativo.
 
@@ -31,7 +31,7 @@ Quando as migrações do EF Core geram o banco de dados, o valor do Catálogo In
 
 O arquivo appsettings.json atualizado com a string de conexão deve se parecer com isto:
 
-´´
+```
 {
     "ConnectionStrings": {
         "WebApiDatabase": "Data Source=localhost; Initial Catalog=dotnet-5-crud-api; User Id=testUser; Password=testPass123"
@@ -54,7 +54,7 @@ O arquivo appsettings.json atualizado com a string de conexão deve se parecer c
         }
     }
 }
-´´
+```
 
 3. Atualize o contexto de dados para usar o SQL Server
 A classe DataContext localizada em /Helpers/DataContext.cs é usada para acessar os dados do aplicativo por meio do Entity Framework. Ele deriva da classe Entity Framework DbContext e possui uma propriedade pública Users para acessar e gerenciar dados do usuário.
