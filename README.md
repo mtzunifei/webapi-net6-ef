@@ -54,7 +54,7 @@ O arquivo appsettings.json atualizado com a string de conexão deve se parecer c
         }
     }
 }
-''
+'
 
 3. Atualize o contexto de dados para usar o SQL Server
 A classe DataContext localizada em /Helpers/DataContext.cs é usada para acessar os dados do aplicativo por meio do Entity Framework. Ele deriva da classe Entity Framework DbContext e possui uma propriedade pública Users para acessar e gerenciar dados do usuário.
@@ -88,5 +88,5 @@ namespace WebApi.Helpers
         public DbSet<User> Users { get; set; }
     }
 }
-''
+'
 
