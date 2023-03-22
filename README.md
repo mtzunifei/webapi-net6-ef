@@ -63,7 +63,7 @@ Atualize o método OnConfiguring() para se conectar ao SQL Server em vez de um b
 
 A classe DataContext atualizada deve ficar assim:
 
-''
+```
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebApi.Entities;
@@ -88,5 +88,35 @@ namespace WebApi.Helpers
         public DbSet<User> Users { get; set; }
     }
 }
-'
+```
 
+4. Criar banco de dados SQL a partir do código com migrações do EF Core
+
+Instalar ferramentas dotnet ef
+
+As ferramentas .NET Entity Framework Core (dotnet ef) são usadas para gerar migrações do EF Core, para instalar as ferramentas EF Core globalmente, execute dotnet tool install -g dotnet-ef ou para atualizar, execute dotnet tool update -g dotnet-ef. Para obter mais informações sobre as ferramentas do EF Core, consulte https://docs.microsoft.com/ef/core/cli/dotnet
+
+5. Adicione o pacote EF Core Design do NuGet
+Execute o seguinte comando da pasta raiz do projeto para instalar o pacote de design do EF Core, ele fornece suporte a ferramentas de linha de comando entre plataformas e é usado para gerar migrações do EF Core:
+
+```dotnet add package Microsoft.EntityFrameworkCore.Design```
+
+6. Gerar migrações do EF Core
+
+Gere novos arquivos de migração do EF Core executando o comando dotnet ef migrations add InitialCreate da pasta raiz do projeto (onde o arquivo WebApi.csproj está localizado), essas migrações criarão o banco de dados e as tabelas para a API do .NET Core.
+
+7. Executar migrações do EF Core
+
+Execute o comando dotnet ef database update da pasta raiz do projeto para executar as migrações do EF Core e criar o banco de dados e as tabelas no SQL Server.
+
+Verifique o SQL Server e agora você deve ver seu banco de dados com as tabelas Users e __EFMigrationsHistory.
+
+8. Reinicie a API .NET CRUD
+
+Pare e reinicie a API com o comando dotnet run da pasta raiz do projeto, você deverá ver a mensagem Now listening on: http://localhost:4000 e a API agora deve estar conectada ao SQL Server.
+
+### NET 6.0 CRUD Conteúdo 
+- Ferramentas necessárias para desenvolver aplicativos .NET 6.0
+- Execute a API de exemplo CRUD localmente
+- Teste a API com Postman
+- Estrutura do projeto do tutorial do .NET 6.0
