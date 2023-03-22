@@ -135,26 +135,33 @@ Para desenvolver e executar aplicativos .NET 6.0 localmente, baixe e instale o s
 
 3. Rode a coleção do postman disponível na raiz do projeto para testar.
 
-4. Estrutura do projeto da API CRUD .NET 6.0
+4. Estrutura do projeto da API CRUD .NET 6.0.
+5. 
 O projeto do tutorial .NET CRUD está organizado nas seguintes pastas:
 
 Controllers
+
 Defina os pontos finais/rotas para a API da Web, os controladores são o ponto de entrada na API da Web a partir de aplicativos cliente por meio de solicitações http.
 
 Models
+
 Representa modelos de solicitação e resposta para métodos do controlador, modelos de solicitação definem parâmetros para solicitações recebidas e modelos de resposta definem dados personalizados retornados em respostas quando necessário. O exemplo contém apenas modelos de solicitação porque não contém nenhuma rota que exija modelos de resposta personalizados, as entidades são retornadas diretamente pelas rotas GET do usuário.
 
 Services
+
 Contém lógica de negócios, validação e código de acesso ao banco de dados.
 
-Entidades
+Entities
+
 Representa os dados do aplicativo armazenados no banco de dados.
 Entity Framework Core (EF Core) mapeia dados relacionais do banco de dados para instâncias de objetos de entidade C# a serem usados ​​no aplicativo para gerenciamento de dados e operações CRUD.
 
-```
+
 Helpers
+
 Qualquer coisa que não caiba nas pastas acima.
 
+```
 Controllers
 - UsersController.cs
 Entities
