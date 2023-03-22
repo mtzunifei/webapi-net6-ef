@@ -23,4 +23,70 @@ Execute o seguinte comando da pasta raiz do projeto para instalar o provedor de 
 
 'dotnet add package Microsoft.EntityFrameworkCore.SqlServer'
 
-2. 
+2. Adicionar cadeia de conexão às configurações do aplicativo.
+
+Abra o arquivo appsettings.json e adicione a entrada "ConnectionStrings" com uma entrada filha para a string de conexão do SQL Server (por exemplo, "WebApiDatabase"), a string de conexão deve estar no formato "Data Source=[DB SERVER URL]; Initial Catalog =[DB NAME]; User Id=[USERNAME]; Password=[PASSWORD]", ou para se conectar com a mesma conta que está executando a API .NET, use o formato de string de conexão "Data Source=[DB SERVER URL]; Initial Catalog=[DB NAME]; Integrated Security=true".
+
+Quando as migrações do EF Core geram o banco de dados, o valor do Catálogo Inicial será o nome do banco de dados criado no SQL Server.
+
+O arquivo appsettings.json atualizado com a string de conexão deve se parecer com isto:
+
+''
+{
+    "ConnectionStrings": {
+        "WebApiDatabase": "Data Source=localhost; Initial Catalog=dotnet-5-crud-api; User Id=testUser; Password=testPass123"
+    },
+    "Logging": {
+        "LogLevel": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information"
+        }
+    }
+}
+'{
+    "ConnectionStrings": {
+        "WebApiDatabase": "Data Source=localhost; Initial Catalog=dotnet-6-crud-api; User Id=testUser; Password=testPass123"
+    },
+    "Logging": {
+        "LogLevel": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information"
+        }
+    }
+}
+''
+
+3. Atualize o contexto de dados para usar o SQL Server
+A classe DataContext localizada em /Helpers/DataContext.cs é usada para acessar os dados do aplicativo por meio do Entity Framework. Ele deriva da classe Entity Framework DbContext e possui uma propriedade pública Users para acessar e gerenciar dados do usuário.
+
+Atualize o método OnConfiguring() para se conectar ao SQL Server em vez de um banco de dados na memória substituindo opções.UseInMemoryDatabase("TestDb"); com with options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));.
+
+A classe DataContext atualizada deve ficar assim:
+
+''
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WebApi.Entities;
+
+namespace WebApi.Helpers
+{
+    public class DataContext : DbContext
+    {
+        protected readonly IConfiguration Configuration;
+
+        public DataContext(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            // connect to sql server with connection string from app settings
+            options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
+        }
+
+        public DbSet<User> Users { get; set; }
+    }
+}
+''
+
