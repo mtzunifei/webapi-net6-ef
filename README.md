@@ -136,7 +136,7 @@ Para desenvolver e executar aplicativos .NET 6.0 localmente, baixe e instale o s
 3. Rode a coleção do postman disponível na raiz do projeto para testar.
 
 4. Estrutura do projeto da API CRUD .NET 6.0.
-5. 
+
 O projeto do tutorial .NET CRUD está organizado nas seguintes pastas:
 
 Controllers
